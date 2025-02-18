@@ -99,10 +99,7 @@ Now, access:
 - `PUT /api/users/:id` , -   Update user data 
 ---
 
-## 📜 License
-This project is licensed under the MIT License.
 
----
 
 ## 📧 Contact
 For issues or suggestions, please open an issue or contact me at [shadanrashid786@gmail.com].
