@@ -84,12 +84,19 @@ Now, access:
 - `POST /api/auth/login` - Login user
 
 ### 🎯 Books Endpoints
-- `GET /api/books/` - Fetch all books by user
-- `GET /api/quizzes/quiz/:id` - Get a specific quiz
-- `POST /api/quizzes` - Create a new quiz
-- `PUT /api/quizzes/:id` - Update a quiz 
-- `DELETE /api/quizzes/:id` - Delete a quiz 
+- `GET /api/books/` -  Fetch all books by user
+- `GET /api/books/featured`  -  Fetch all featuredBooks
+- `GET /api/books:id`  -  Fetch individual book details
+- `POST /api/books`  -  Upload a book ( only admin ) 
+- `POST /api/boooks/featured/:id` -  set a book featured (only admin ) 
 
+###  🎯 Review Endpoints
+- `GET /api/reviews/:bookId`  -  Fetch all the reviews of a book
+- `POST api/reviews`  -  add review to a book
+
+###  🎯 User Endpoints
+- `GET /api/users/:id`, -  fetch user data
+- `PUT /api/users/:id` , -   Update user data 
 ---
 
 ## 📜 License
