@@ -1,0 +1,18 @@
+version: "3.8"
+
+services:
+  backend:
+    build: ./backend
+    container_name: backend_container
+    ports:
+      - "5000:5000"
+    environment:
+      - NODE_ENV=production
+
+  frontend:
+    build: ./my-vite-project
+    container_name: frontend_container
+    ports:
+      - "3000:80"
+    depends_on:
+      - backend
