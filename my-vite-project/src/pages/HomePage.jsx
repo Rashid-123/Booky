@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Container, Grid, Card, CardContent, Typography, Rating, Box, Button } from "@mui/material";
-import { Link } from "react-router-dom"; // Import Link for navigation
+import { Link } from "react-router-dom";
 import { getFeaturedBooks } from "../services/bookService";
 
 const HomePage = () => {
@@ -21,8 +21,11 @@ const HomePage = () => {
       return (
             <Container sx={{ py: 4 }}>
                   <Typography variant="h4" component="h1" gutterBottom sx={{ fontWeight: "bold", textAlign: "center", mb: 4 }}>
-                        Featured Books
+                        Featured
                   </Typography>
+
+
+
                   <Grid container spacing={4}>
                         {featuredBooks.map((book) => (
                               <Grid item key={book._id} xs={12} sm={6} md={4}>
@@ -55,12 +58,12 @@ const HomePage = () => {
                                                       {book.description.substring(0, 100)}...
                                                 </Typography>
 
-                                                {/* View Details Button */}
+
                                                 <Button
                                                       variant="contained"
                                                       color="primary"
                                                       component={Link}
-                                                      to={`/books/${book._id}`} // Navigate to the book details page
+                                                      to={`/books/${book._id}`}
                                                       sx={{ mt: 2 }}
                                                 >
                                                       View Details

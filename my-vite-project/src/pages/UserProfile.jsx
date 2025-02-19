@@ -1,9 +1,9 @@
-// pages/UserProfile.js
+
 import { useContext, useState } from "react";
 import { Card, CardContent, CardHeader, Typography, Button, Avatar, Grid, TextField } from "@mui/material";
 import { AuthContext } from "../context/AuthContext";
 import { useNavigate } from "react-router-dom";
-const API_BASE_URL = import.meta.env.VITE_API_BASE_URL; // Use environment variable for base URL
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 import axios from "axios";
 const UserProfile = () => {
       const { user, logout } = useContext(AuthContext);
@@ -20,7 +20,7 @@ const UserProfile = () => {
             setFormData({ ...formData, [e.target.name]: e.target.value });
       };
 
-      // Handle profile update
+
       const handleSubmit = async (e) => {
             e.preventDefault();
             try {

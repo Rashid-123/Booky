@@ -4,12 +4,30 @@ const Review = require("../models/Review");
 
 exports.getBooks = async (req, res) => {
   try {
-    const books = await Book.find().populate("reviews"); // Populate reviews
-    res.json(books);
+    const page = parseInt(req.query.page) || 1;
+    const limit = parseInt(req.query.limit) || 8;
+    const skip = (page - 1) * limit;
+
+
+    const books = await Book.find()
+      .populate("reviews")
+      .skip(skip)
+      .limit(limit);
+
+
+    const totalBooks = await Book.countDocuments();
+
+    res.json({
+      books,
+      totalBooks,
+      totalPages: Math.ceil(totalBooks / limit),
+      currentPage: page,
+    });
   } catch (error) {
     res.status(500).json({ message: "Failed to fetch books", error: error.message });
   }
 };
+
 
 exports.getBookById = async (req, res) => {
   try {

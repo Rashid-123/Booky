@@ -1,8 +1,8 @@
 import axios from "axios";
 
-const API_BASE_URL = import.meta.env.VITE_API_BASE_URL; // Use environment variable for base URL
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
-// Fetch featured books
+
 const getFeaturedBooks = async () => {
       try {
             const response = await axios.get(`${API_BASE_URL}/books/featured`);
@@ -13,14 +13,24 @@ const getFeaturedBooks = async () => {
       }
 };
 
-// Fetch all books
-const getAllBooks = async () => {
+
+// const getAllBooks = async () => {
+//       try {
+//             const response = await axios.get(`${API_BASE_URL}/books`);
+//             return response.data;
+//       } catch (error) {
+//             console.error("Error fetching all books:", error);
+//             throw error;
+//       }
+// };
+
+const getAllBooks = async (page = 1, limit = 8) => {
       try {
-            const response = await axios.get(`${API_BASE_URL}/books`);
+            const response = await axios.get(`${API_BASE_URL}/books?page=${page}&limit=${limit}`);
             return response.data;
       } catch (error) {
-            console.error("Error fetching all books:", error);
-            throw error;
+            console.error("Error fetching books:", error);
+            return { books: [], totalPages: 1 }; // Return default values on error
       }
 };
 

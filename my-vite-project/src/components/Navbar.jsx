@@ -1,92 +1,81 @@
-import { useContext } from "react";
-import { AppBar, Toolbar, Typography, Button, Box, Avatar } from "@mui/material";
+
+
+import { useContext, useState } from "react";
+import { AppBar, Toolbar, Typography, Button, Box, Avatar, IconButton, Drawer, List, ListItem, ListItemText, Divider } from "@mui/material";
 import { AuthContext } from "../context/AuthContext";
 import { Link } from "react-router-dom";
+import MenuIcon from "@mui/icons-material/Menu";
 
 const Navbar = () => {
       const { user, logout } = useContext(AuthContext);
+      const [mobileOpen, setMobileOpen] = useState(false);
+
+      const handleDrawerToggle = () => {
+            setMobileOpen(!mobileOpen);
+      };
+
+
+      const navLinks = [
+            { title: "Books", path: "/books" },
+            user?.role === "admin" && { title: "Admin Dashboard", path: "/admin-dashboard" },
+            user
+                  ? { title: "Profile", path: "/profile", icon: <Avatar sx={{ width: 30, height: 30, bgcolor: "white", color: "#1976d2" }}>{user.name[0]}</Avatar> }
+                  : { title: "Login", path: "/login" }
+      ].filter(Boolean);
 
       return (
-            <AppBar position="static" sx={{ backgroundColor: "#1976d2", boxShadow: 3 }}>
-                  <Toolbar sx={{ maxWidth: "1480px", margin: "0 auto", width: "100%" }}>
-                        {/* Logo or Brand Name */}
+            <AppBar position="static">
+                  <Toolbar>
+
                         <Typography
                               variant="h6"
                               component={Link}
                               to="/"
-                              sx={{
-                                    flexGrow: 1,
-                                    fontWeight: "bold",
-                                    textDecoration: "none",
-                                    color: "inherit",
-                              }}
+                              sx={{ flexGrow: 1, fontWeight: "bold", textDecoration: "none", color: "inherit" }}
                         >
-                              Book Store
+                              Booky
                         </Typography>
 
-                        {/* Navigation Links */}
-                        <Box sx={{ display: "flex", alignItems: "center", gap: 2 }}>
-                              {/* Always Show Books Button */}
-                              <Button
-                                    color="inherit"
-                                    component={Link}
-                                    to="/books"
-                                    sx={{ display: "flex", alignItems: "center", gap: 1 }}
-                              >
-                                    Books
-                              </Button>
 
-                              {user ? (
-                                    <>
-                                          {/* Admin Dashboard Button (Only for Admins) */}
-                                          {user.role === "admin" && (
-                                                <Button
-                                                      color="inherit"
-                                                      component={Link}
-                                                      to="/admin-dashboard"
-                                                      sx={{ display: "flex", alignItems: "center", gap: 1 }}
-                                                >
-                                                      Admin Dashboard
-                                                </Button>
-                                          )}
-
-                                          {/* Profile Button with Avatar */}
-                                          <Button
-                                                color="inherit"
-                                                component={Link}
-                                                to="/profile"
-                                                sx={{ display: "flex", alignItems: "center", gap: 1 }}
-                                          >
-                                                <Avatar sx={{ width: 30, height: 30, bgcolor: "white", color: "#1976d2" }}>
-                                                      {user.name[0]}
-                                                </Avatar>
-                                                <Typography variant="body1" sx={{ textTransform: "capitalize" }}>
-                                                      {user.name}
-                                                </Typography>
-                                          </Button>
-
-                                          {/* Logout Button */}
-                                          <Button
-                                                color="inherit"
-                                                onClick={logout}
-                                                sx={{ textTransform: "none", fontWeight: "bold" }}
-                                          >
-                                                Logout
-                                          </Button>
-                                    </>
-                              ) : (
-                                    // Login Button
-                                    <Button
-                                          color="inherit"
-                                          component={Link}
-                                          to="/login"
-                                          sx={{ textTransform: "none", fontWeight: "bold" }}
-                                    >
-                                          Login
+                        <Box sx={{ display: { xs: "none", md: "flex" }, alignItems: "center", gap: 2 }}>
+                              {navLinks.map(({ title, path, icon }) => (
+                                    <Button key={title} color="inherit" component={Link} to={path} sx={{ display: "flex", alignItems: "center", gap: 1 }}>
+                                          {icon} <Typography variant="body1">{title}</Typography>
+                                    </Button>
+                              ))}
+                              {user && (
+                                    <Button color="inherit" onClick={logout} sx={{ textTransform: "none", fontWeight: "bold" }}>
+                                          Logout
                                     </Button>
                               )}
                         </Box>
+
+
+                        <IconButton edge="end" color="inherit" aria-label="menu" onClick={handleDrawerToggle} sx={{ display: { xs: "flex", md: "none" } }}>
+                              <MenuIcon />
+                        </IconButton>
                   </Toolbar>
+
+
+                  <Drawer anchor="right" open={mobileOpen} onClose={handleDrawerToggle}>
+                        <Box sx={{ width: 250 }} role="presentation" onClick={handleDrawerToggle}>
+                              <List>
+                                    {navLinks.map(({ title, path }) => (
+                                          <ListItem button key={title} component={Link} to={path}>
+                                                <ListItemText primary={title} />
+                                          </ListItem>
+                                    ))}
+                                    {user && (
+                                          <>
+                                                <Divider />
+                                                <ListItem button onClick={logout}>
+                                                      <ListItemText primary="Logout" />
+                                                </ListItem>
+                                          </>
+                                    )}
+                              </List>
+                        </Box>
+                  </Drawer>
             </AppBar>
       );
 };

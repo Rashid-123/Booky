@@ -6,21 +6,21 @@ import { useContext } from "react";
 import { AuthContext } from "../context/AuthContext";
 
 const Layout = () => {
-      const { user, logout } = useContext(AuthContext); // Access AuthContext
+      const { user, logout } = useContext(AuthContext);
 
       return (
             <Box sx={{ display: "flex", flexDirection: "column", minHeight: "100vh" }}>
-                  {/* Navbar (with AuthContext) */}
+
                   <header>
-                        <Navbar user={user} logout={logout} /> {/* Pass user & logout to Navbar */}
+                        <Navbar user={user} logout={logout} />
                   </header>
 
-                  {/* Main content area */}
+
                   <Container component="main" sx={{ flexGrow: 1, py: 3 }}>
-                        <Outlet /> {/* Renders the current route's component */}
+                        <Outlet />
                   </Container>
 
-                  {/* Footer */}
+
                   <footer>
                         <Footer />
                   </footer>
