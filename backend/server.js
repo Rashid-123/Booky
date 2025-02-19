@@ -16,11 +16,12 @@ const app = express();
 
 // CORS Configuration
 const corsOptions = {
-  origin: process.env.FRONTEND_URL || "https://booky-swart.vercel.app" || "http://localhost:5173",
+  origin: [process.env.FRONTEND_URL, "https://booky-swart.vercel.app", "http://localhost:5173"].filter(Boolean),
   methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
   credentials: true,
   optionsSuccessStatus: 204,
 };
+
 
 app.use(cors(corsOptions));
 
