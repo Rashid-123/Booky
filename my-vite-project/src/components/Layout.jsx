@@ -1,6 +1,6 @@
 import { Outlet } from "react-router-dom";
 import { Box, Container } from "@mui/material";
-import Navbar from "./navbar";
+import Navbar from "./Navbar";
 import Footer from "./Footer";
 import { useContext } from "react";
 import { AuthContext } from "../context/AuthContext";
