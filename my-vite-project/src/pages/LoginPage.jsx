@@ -1,6 +1,6 @@
 import { useState, useContext } from "react";
 import {
-      Container, TextField, Button, Typography, IconButton, InputAdornment
+      Container, TextField, Button, Typography, IconButton, InputAdornment, Alert
 } from "@mui/material";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 import { AuthContext } from "../context/AuthContext";
@@ -10,16 +10,19 @@ const LoginPage = () => {
       const [email, setEmail] = useState("");
       const [password, setPassword] = useState("");
       const [showPassword, setShowPassword] = useState(false);
+      const [error, setError] = useState("");
       const { login } = useContext(AuthContext);
       const navigate = useNavigate();
 
       const handleSubmit = async (e) => {
             e.preventDefault();
+            setError(""); // Clear previous errors
             try {
                   await login(email, password);
                   navigate("/");
             } catch (error) {
                   console.error("Login failed:", error);
+                  setError("Invalid email or password. Please try again.");
             }
       };
 
@@ -28,6 +31,7 @@ const LoginPage = () => {
                   <Typography variant="h4" gutterBottom>
                         Login
                   </Typography>
+                  {error && <Alert severity="error" sx={{ mb: 2 }}>{error}</Alert>}
                   <form onSubmit={handleSubmit}>
                         <TextField
                               label="Email"
