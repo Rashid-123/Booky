@@ -9,7 +9,7 @@ const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
 
-  // // Check if the user is logged in on initial load
+
   useEffect(() => {
     const checkAuth = () => {
 
@@ -17,21 +17,21 @@ const AuthProvider = ({ children }) => {
       const storedUser = localStorage.getItem("user");
 
       if (storedUser) {
-        // If user data is available in localStorage, set it directly
+
         setUser(JSON.parse(storedUser));
       }
 
       if (token) {
         try {
           const decoded = jwtDecode(token);
-          const currentTime = Date.now() / 1000; // Convert to seconds
+          const currentTime = Date.now() / 1000;
 
-          // Check if the token is expired
+
           if (decoded.exp && decoded.exp < currentTime) {
             console.log("Token expired, logging out...");
             localStorage.removeItem("token");
             localStorage.removeItem("user");
-            setUser(null); // Remove user state
+            setUser(null);
             return;
           }
 
@@ -52,7 +52,7 @@ const AuthProvider = ({ children }) => {
     checkAuth();
   }, []);
 
-  // Login function
+
   const login = async (email, password) => {
     try {
       const response = await axios.post(`${API_BASE_URL}/auth/login`, { email, password });
@@ -66,7 +66,7 @@ const AuthProvider = ({ children }) => {
     }
   };
 
-  // Register function
+
   const register = async (name, email, password) => {
     try {
       const response = await axios.post(`${API_BASE_URL}/auth/register`, { name, email, password });
@@ -78,7 +78,7 @@ const AuthProvider = ({ children }) => {
     }
   };
 
-  // Logout function
+
   const logout = () => {
     localStorage.removeItem("token");
     localStorage.removeItem("user");

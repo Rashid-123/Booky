@@ -11,7 +11,7 @@ const AdminPage = () => {
       const [loading, setLoading] = useState(false);
       const [error, setError] = useState('');
 
-      const categories = ['Fiction', 'Non-Fiction', 'Science', 'Technology', 'History', 'Fantasy', 'Biography']; // Predefined categories
+      const categories = ['Fiction', 'Non-Fiction', 'Science', 'Technology', 'History', 'Fantasy', 'Biography', 'Productivity'];
 
       const handleSubmit = async (e) => {
             e.preventDefault();
