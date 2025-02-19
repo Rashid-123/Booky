@@ -16,13 +16,13 @@ const app = express();
 
 // CORS Configuration
 const corsOptions = {
-  origin: process.env.FRONTEND_URL || "http://localhost:5173", // Allow requests from this origin
-  methods: "GET,HEAD,PUT,PATCH,POST,DELETE", // Allowed HTTP methods
-  credentials: true, // Allow cookies and credentials to be sent
-  optionsSuccessStatus: 204, // Respond with 204 No Content for preflight requests
+  origin: process.env.FRONTEND_URL || "https://booky-swart.vercel.app" || "http://localhost:5173",
+  methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+  credentials: true,
+  optionsSuccessStatus: 204,
 };
 
-app.use(cors(corsOptions)); // Enable CORS with the specified options
+app.use(cors(corsOptions));
 
 app.use(express.json());
 app.use("/api/auth", authRoutes);
