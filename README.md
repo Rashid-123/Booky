@@ -1,6 +1,23 @@
-# Booky  ( a book review platform )
+# Booky  ( a book review platform ) 
+
+## 🌍 Live App URL (https://booky-swart.vercel.app/)
+
+ ## 🔑 Admin Login for Exploration  
+To explore all features, use the following credentials:  
+- **Email:** `shadanrashid786@gmail.com`  
+- **Password:** `Shadan@1505`  
+
+Enjoy exploring the platform! 🚀  
 
 ---
+
+## Tech Stack  
+**Frontend :**  React , Vite  
+**Backend :**  Node.js , Express.js , MongoDB  
+**Authentication :** JWT , bcrypt  
+**Deployment :** Render (Backend) , Vercel (Frontend) 
+
+
 ## 🚀 Docker Images
 
 - **Frontend Image :**  https://hub.docker.com/r/rashid29/book-frontend
