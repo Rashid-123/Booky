@@ -5,8 +5,8 @@ import Home from "./pages/Home";
 import Books from "./pages/Books.jsx";
 import BookDetails from "./pages/BookDetails.jsx";
 import Profile from "./pages/Profile.jsx";
-import Login from "./pages/login.jsx";
-import Register from "./pages/register.jsx";
+import Login from "./pages/Login.jsx";
+import Register from "./pages/Register.jsx";
 import Admin from "./pages/Admin.jsx";
 
 const App = () => {
