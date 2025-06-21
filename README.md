@@ -46,6 +46,14 @@ cd client
 npm install
 ```
 
+### Set up environment variables:
+
+Create a `.env` file in the `server/` directory with the following:
+
+```
+VITE_API_BASE_URL=http://localhost:5000/api
+```
+
 ### Start the development server:
 
 ```bash
