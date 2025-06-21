@@ -1,4 +1,4 @@
-# 📚 Booky - Online Book Management Platform
+# 📚 Booky - Online Book Review Platform
 
 A full-stack Book Review platform built using React, Node.js, Express, PostgreSQL, Prisma, and Tailwind CSS.
 
