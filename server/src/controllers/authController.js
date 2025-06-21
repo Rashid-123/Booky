@@ -75,7 +75,7 @@ exports.registerUser = async (req, res) => {
 exports.loginUser = async (req, res) => {
   try {
     const { email, password } = req.body;
-
+  console.log('Login request:', req.body);
     // Data validation
     if (!email || !password) {
       return res.status(400).json({ 
@@ -86,16 +86,19 @@ exports.loginUser = async (req, res) => {
     if (!isValidEmail(email)) {
       return res.status(400).json({ message: "Invalid email format" });
     }
-
+  
+    console.log('Searching for user with email:', email.toLowerCase().trim());
     const user = await prisma.user.findUnique({ where: { email: email.toLowerCase().trim() } });
     if (!user) {
       return res.status(400).json({ message: "Invalid email or password" });
     }
-
+console.log('User found:', user.id, user.name); 
     const isMatch = await bcrypt.compare(password, user.password);
     if (!isMatch) {
       return res.status(400).json({ message: "Invalid email or password" });
     }
+
+    console.log('User found:', user.id, user.name);
 
     const token = jwt.sign({ id: user.id, role: user.role }, JWT_SECRET, { expiresIn: '7d' });
 

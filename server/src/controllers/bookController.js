@@ -109,6 +109,66 @@ exports.getBook = async (req, res) => {
   }
 };
 
+exports.getFeaturedBooks = async (req, res) => { 
+  try {
+    console.log('Get featured books request:', req.query);
+    const page = parseInt(req.query.page) || 1;
+    const limit = parseInt(req.query.limit) || 10;
+
+    // Validation for pagination
+    if (page < 1) {
+      return res.status(400).json({ message: "Page must be a positive integer" });
+    }
+
+    if (limit < 1 || limit > 100) {
+      return res.status(400).json({ 
+        message: "Limit must be between 1 and 100" 
+      });
+    }
+
+    const featuredBooks = await prisma.book.findMany({
+      where: { featured: true },
+      skip: (page - 1) * limit,
+      take: limit,
+      include: {
+        category: true,
+        reviews: {
+          select: {
+            rating: true
+          }
+        }
+      },
+      orderBy: {
+        createdAt: 'desc'
+      }
+    });
+
+    //  average rating for each book
+    const booksWithRating = featuredBooks.map(book => ({
+      ...book,
+      averageRating: book.reviews.length > 0 
+        ? book.reviews.reduce((sum, review) => sum + review.rating, 0) / book.reviews.length
+        : 0,
+      totalReviews: book.reviews.length
+    }));
+
+    const totalFeaturedBooks = await prisma.book.count({
+      where: { featured: true }
+    });
+
+    res.json({
+      books: booksWithRating,
+      totalPages: Math.ceil(totalFeaturedBooks / limit),
+      currentPage: page,
+      totalBooks: totalFeaturedBooks
+    });
+  } catch (err) {
+    console.error('Get featured books error:', err);
+    res.status(500).json({ message: "Internal server error" });
+  }
+} 
+
+
 // --------------------------------------------- Get books by category ---------------------------------------------
 exports.getBooksByCategory = async (req, res) => {
   try {
