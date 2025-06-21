@@ -7,7 +7,7 @@ exports.addBook = async (req, res) => {
   try {
     const { title, author, description, featured, categoryId } = req.body;
 
-    // Data validation
+
     if (!title || !author || !description || !categoryId) {
       return res.status(400).json({ 
         message: "Title, author, description, and categoryId are required" 
